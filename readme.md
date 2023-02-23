@@ -3,7 +3,7 @@
 **Update**
 
 2023 February 23
-I try to use on Linux Mint 21.1 and I update code with Python3
+I try to use on Linux Mint 21.1 and I start to update code with Python3
 
 There seems to be a lot of issue with newer Linux distributions, its known to work on Debian 7, but there seems to have been some changes made, that break core functionality in other distros. 
 
