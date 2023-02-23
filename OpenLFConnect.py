@@ -165,7 +165,7 @@ Standard profiles are in Extras/Profiles/*.cfg
             self._profile_path = abspath
             self._lm.last_location()       
             self._profile.load(abspath)
-        except Exception, e:      
+        except Exception as e:      
             self.perror(e)
 
 
@@ -177,7 +177,7 @@ Usage:
 
 Prints the file name of the currently loaded device profile
         """
-        print self._profile.get['olfc']['profile_name']
+        print (self._profile.get['olfc']['profile_name'])
 
 
 
@@ -200,7 +200,7 @@ If no path is given, saves currently loaded profile.
 
             self._lm.last_location()
             self._profile.save_as_default(abspath)
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -224,13 +224,13 @@ If no path is given, saves currently loaded profile.
 
     def didj_device_info(self):
         try:
-            print '  Device Name:\t\tDidj'
-            print '  Serial Number:\t%s' % self._didj_client.serial_number
-            print '  Battery Level:\t%s' % self._didj_client.battery_level
-            print '  Needs Repair:\t\t%s' % self._didj_client.needs_repair
-            print '  Device ID:\t\t%s' % self._lm.remote_conn.device_id
-            print '  Mount Point:\t\t%s' % self._lm.remote_conn.host_id
-        except Exception, e:
+            print ('  Device Name:\t\tDidj')
+            print ('  Serial Number:\t%s' % self._didj_client.serial_number)
+            print ('  Battery Level:\t%s' % self._didj_client.battery_level)
+            print ('  Needs Repair:\t\t%s' % self._didj_client.needs_repair)
+            print ('  Device ID:\t\t%s' % self._lm.remote_conn.device_id)
+            print ('  Mount Point:\t\t%s' % self._lm.remote_conn.host_id)
+        except Exception as e:
             self.error(e)
             
 #######################
@@ -254,13 +254,13 @@ Unlock Didj to allow it to mount on host system.
                     self._didj_client.mount()
                     self._lm.remote_path_init()
                     self.didj_device_info()
-                except Exception, e:
+                except Exception as e:
                     self._didj_client = None
                     self._lm.remote_destroy()
                     self.error(e)                    
             else:
                 self.perror('Didj is already running.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -281,7 +281,7 @@ Could take some time to unmount and eject if you have written files to
             self._lm.is_remote(self._didj_client)
             self._didj_client.eject()
             self._lm.remote_destroy()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -296,7 +296,7 @@ Returns various information about device and mount.
         try:
             self._lm.is_remote(self._didj_client)
             self.didj_device_info()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -331,7 +331,7 @@ MD5 files will be created automatically.
                 self._lm.remote_destroy()
             else:
                 self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -367,7 +367,7 @@ MD5 files will be created automatically.
                 self._lm.remote_destroy()
             else:
                 self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -402,7 +402,7 @@ MD5 files will be created automatically.
                 self._lm.remote_destroy()
             else:
                 self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -418,7 +418,7 @@ Remove Didj firmware and bootloader from device.
         try:
             self._lm.is_remote(self._didj_client)
             self._didj_client.cleanup()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -451,7 +451,7 @@ You should now be able to USB Boot like the Explorer and update using DFTP.
                 self._lm.remote_destroy()
             else:
                 self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -471,20 +471,20 @@ You should now be able to USB Boot like the Explorer and update using DFTP.
         try:
             device_name = self._dftp_client.device_name
             serial = self._dftp_client.serial_number
-            print '  Device:\t\t%s' % device_name
-            print '  Firmware Version:\t%s' % self._dftp_client.firmware_version
-            print '  Serial Number\t\t%s' % serial
-            print '  Board ID:\t\t%s' % self._dftp_client.board_id
-            print '  Battery Level\t\t%s' % self._dftp_client.battery_level
+            print ('  Device:\t\t%s' % device_name)
+            print ('  Firmware Version:\t%s' % self._dftp_client.firmware_version)
+            print ('  Serial Number\t\t%s' % serial)
+            print ('  Board ID:\t\t%s' % self._dftp_client.board_id)
+            print ('  Battery Level\t\t%s' % self._dftp_client.battery_level)
             if self._lm.remote_conn.host_id != '/':
-                print '  Device IP:\t\t%s' % self._lm.remote_conn.device_id
-                print '  Host IP:\t\t%s' % self._lm.remote_conn.host_id
-                print '  Host Name:\t\t%s-%s' % (device_name, serial)
+                print ('  Device IP:\t\t%s' % self._lm.remote_conn.device_id)
+                print ('  Host IP:\t\t%s' % self._lm.remote_conn.host_id)
+                print ('  Host Name:\t\t%s-%s' % (device_name, serial))
             else:
-                print '  Device ID:\t\t%s' % self._lm.remote_conn.device_id
+                print ('  Device ID:\t\t%s' % self._lm.remote_conn.device_id)
         
-            print '  DFTP Version:\t\t%s' % self._dftp_client.dftp_version
-        except Exception, e:
+            print ('  DFTP Version:\t\t%s' % self._dftp_client.dftp_version)
+        except Exception as e:
             self.error(e)
 
 #######################
@@ -510,22 +510,22 @@ This could take a minute or so, if you just booted the device.
                 try:
                     if self._profile.get['firmware']['dftp_version'] == 1:
                         ci = conn_iface(net_connection(self.host_id, self.device_id, self.debug))
-                        print 'Connecting with DFTP v1 Networking.'
+                        print ('Connecting with DFTP v1 Networking.')
                     elif self._profile.get['firmware']['dftp_version'] == 2:
                         ci = conn_iface(mount_connection(self.device_id, 'NULL', self.debug))
-                        print 'Connecting with DFTP v2 Mass Storage.'
+                        print ('Connecting with DFTP v2 Mass Storage.')
                     self._dftp_client = dftp_client(ci, self._profile, self.debug)
                     self._lm.remote_connection_init(ci, fs_iface(self._dftp_client), self._dftp_client)
                     self._dftp_client.create_client()
                     self._lm.remote_path_init()
                     #self.dftp_device_info()
-                except Exception, e:
+                except Exception as e:
                     self._dftp_client = None
                     self._lm.remote_destroy() 
                     self.error(e)                   
             else:
                 self.perror('DFTP client already running.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -543,7 +543,7 @@ This will cause the DFTP server to start announcing its IP again,
             self._dftp_client.disconnect()
             self._dftp_client = None
             self._lm.remote_destroy()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -559,7 +559,7 @@ Note: Device name is guessed from board id.
         try:
             self._lm.is_remote(self._dftp_client)
             self.dftp_device_info()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -583,7 +583,7 @@ Caution: Has not been tested on LeapPad1, LeapPad2, or GS theoretically it
             abspath = self._lm.get_abspath(s)
             self._dftp_client.update_firmware(abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -600,7 +600,7 @@ This will trigger a reboot.
             self._dftp_client.reboot()
             self._dftp_client = None
             self._lm.remote_destroy()
-        except Exception, e:
+        except Exception as e:
             self._dftp_client = None
             self._lm.remote_destroy()
             self.perror(e)
@@ -619,7 +619,7 @@ If surgeon is booted, will do a standared reboot.
             self._dftp_client.reboot_usbmode()
             self._dftp_client = None
             self._lm.remote_destroy()
-        except Exception, e:
+        except Exception as e:
             self._dftp_client = None
             self._lm.remote_destroy()
             self.perror(e)
@@ -639,7 +639,7 @@ Gives you access to the devices filesystem when running Surgeon.
         try:
             self._lm.is_remote(self._dftp_client)
             self._dftp_client.mount_patient(s)
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -659,7 +659,7 @@ This takes a shell script as an argument, and proceeds to run it on the device.
             self._dftp_client.run_script(path)
                 
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -679,8 +679,8 @@ Advanced use only, don't know, probably shouldn't.
             ret = self._dftp_client.receive()
             self._dftp_client._connection.timeout()
             if ret:
-                print ret
-        except Exception, e:
+                print (ret)
+        except Exception as e:
             self.perror(e)
 
 ##############################################################################
@@ -715,13 +715,13 @@ File can be any name, but must conform to CBF standards.
             if not self._lm.fs.is_dir(abspath):
                 self._pager_client = pager_client(conn_iface(mount_connection()))
                 self._pager_client.upload(abspath)
-                print 'Booting surgeon.'
+                print ('Booting surgeon.')
                 self._pager_client = None
             else:
                 self.error('Path is not a file.')
 
             self._pager_client = None
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
     def do_surgeon_extract_rootfs(self, s):
@@ -744,7 +744,7 @@ Extracts the Root file system (initramfs) to
                     self.error('Path is not a file.')
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 ##############################################################################
@@ -945,7 +945,7 @@ Set to remote device for filesystem navigation.
         try:
             self._lm.is_remote()
             self._lm.set_remote()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -959,7 +959,7 @@ Set to prompt to local host for filesystem navigation.
         """
         try:
             self._lm.set_local()
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
             
 #######################
@@ -974,7 +974,7 @@ Usage:
 
 Print current remote directory path.
         """
-        print self._lm.remote_path
+        print (self._lm.remote_path)
 
 
 
@@ -985,7 +985,7 @@ Usage:
 
 Print current local directory path.
         """
-        print self._lm.local_path
+        print (self._lm.local_path)
 
 
 
@@ -1017,15 +1017,15 @@ List directory contents. Where depends on which is set, remote or local
             for item in dlist:
                 
                 if item[-1:] == '/':
-                    print '  %s' % item
+                    print ('  %s' % item)
                 else:
                     flist.append(item)
                     
             flist.sort(key=str.lower)
             
             for item in flist:
-                print '  %s' % item
-        except Exception, e:
+                print ('  %s' % item)
+        except Exception as e:
             self.perror(e)
 
 
@@ -1042,7 +1042,7 @@ Change directories. Where depends on which is set, remote or local
             self._lm.is_empty(s)
             abspath = self._lm.get_abspath(s)
             self._lm.set_path(abspath)
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1063,7 +1063,7 @@ Create directory. Where depends on which is set, remote or local
             else:
                 self._lm.fs.mkdir(abspath)
 
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1084,7 +1084,7 @@ Delete directory. Where depends on which is set, remote or local
             else:
                 self._lm.fs.rmdir(abspath)
                 
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1105,7 +1105,7 @@ Delete file. Where depends on which is set, remote or local
             else:
                 self._lm.fs.rm(abspath)
 
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 #######################
@@ -1136,7 +1136,7 @@ Upload the specified local file to the current remote directory,
             
             self._lm.fs.upload(abspath, remote_path)
             self._lm.last_location()                    
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1157,7 +1157,7 @@ Download the specified remote file to the current local directory,
             abspath = self._lm.get_abspath(s)            
             self._lm.fs.download(os.path.join(self._lm.local_path, os.path.basename(abspath)), abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1173,8 +1173,8 @@ Doesn't care what kind or how big of a file.
         """
         try:
             self._lm.is_empty(s)
-            print self._lm.fs.cat(self._lm.get_abspath(s))
-        except Exception, e:
+            print (self._lm.fs.cat(self._lm.get_abspath(s)))
+        except Exception as e:
             self.perror(e)
 
 ##############################################################################
@@ -1233,7 +1233,7 @@ Will overwrite without warning.
             abspath = self._lm.get_abspath(s)
             packages.extract(abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1253,7 +1253,7 @@ surgeon and bulk are not available for Didj.
             self._lm.is_empty(s)           
             lfp = packages.lf_packages(self._profile)
             lfp.get_package(s, self._lm.local_path)
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 #######################
@@ -1277,7 +1277,7 @@ Saves the image file to the same directory the cbf file was in.
             abspath = self._lm.get_abspath(s)
             cbf.extract(abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1304,7 +1304,7 @@ Low is standard setting for everything but LeapPad Kernel which is High
             abspath = self._lm.get_abspath(ifile)
             cbf.create(mem, os.path.join(self._lm.local_path, ofile), abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1324,7 +1324,7 @@ CBF is used on kernels and surgeon, to wrap a zImage or Image file.
             abspath = self._lm.get_abspath(s)
             cbf.summary(abspath)
             self._lm.last_location()
-        except Exception, e:
+        except Exception as e:
             self._lm.last_location()
             self.perror(e)
 
@@ -1363,7 +1363,7 @@ Will be prompted for password, sudo required for commands.
                 u.mount(abspath)
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1384,7 +1384,7 @@ Will be prompted for password, sudo required for commands.
                 u.umount()
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1417,7 +1417,7 @@ Will be prompted for password, sudo required for commands.
                 u.create(part, os.path.join(self._lm.local_path, ofile), abspath)
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1440,7 +1440,7 @@ Will be prompted for password, sudo required for commands.
                 j.mount(abspath)
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1461,7 +1461,7 @@ Will be prompted for password, sudo required for commands.
                 j.umount()
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
 
 
@@ -1487,7 +1487,7 @@ Will be prompted for password, sudo required for commands.
                 j.create(os.path.join(self._lm.local_path, ifile), abspath)
             else:
                 self.error('Linux only command.')
-        except Exception, e:
+        except Exception as e:
             self.perror(e)
          
 if __name__ == '__main__':
