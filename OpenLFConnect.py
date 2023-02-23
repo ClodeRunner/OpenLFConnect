@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##############################################################################
 #    OpenLFConnect
 #
@@ -57,7 +57,7 @@ from olcmodules.firmware.initramfs import extract as irfs_extract
 class OpenLFConnect(cmd.Cmd, object):
     def __init__(self):
         cmd.Cmd.__init__(self)
-        print 'OpenLFConnect Version 1.0.5'
+        print ('OpenLFConnect Version 1.0.5')
         self.debug = False      
         config.olc_files_dirs_check()
         
@@ -88,7 +88,7 @@ class OpenLFConnect(cmd.Cmd, object):
         assert False, '%s' % e
 
     def perror(self, e):
-        print '%s' % e
+        print ('%s' % e)
 
     def emptyline(self):
         pass
@@ -99,7 +99,7 @@ class OpenLFConnect(cmd.Cmd, object):
                 super(OpenLFConnect, self).cmdloop(intro="")
                 self.postloop()
             except KeyboardInterrupt:
-                print '\n'
+                print ('\n')
                 self.postloop()
                 sys.exit(0)
 
