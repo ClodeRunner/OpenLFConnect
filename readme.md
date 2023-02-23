@@ -2,6 +2,9 @@
 
 **Update**
 
+2023 February 23
+I try to use on Linux Mint 21.1 and I update code with Python3
+
 There seems to be a lot of issue with newer Linux distributions, its known to work on Debian 7, but there seems to have been some changes made, that break core functionality in other distros. 
 
 As of now, March 20 2014 I am finished with the project, as other things have come up and I can't keep up with the changes.
