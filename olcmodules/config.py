@@ -55,8 +55,8 @@ def olc_files_dirs_check():
 
         if not os.path.exists(FILES_PATH):
             os.mkdir(FILES_PATH)
-            print 'Files folder is missing, lets repopulate.'
-            print 'Created %s/' % FILES_PATH
+            print ('Files folder is missing, lets repopulate.')
+            print ('Created %s/' % FILES_PATH)
 
         if not os.path.exists(HISTORY_FILE_PATH):
             open(HISTORY_FILE_PATH, 'a').close()
@@ -71,7 +71,7 @@ def olc_files_dirs_check():
                     device_profile = dprofile.load(os.path.join(INTERNAL_PROFILES_PATH, cfg))
                     if device_profile['olfc']['create_dir'].lower() == 'true':
                         dirs.append(os.path.join(FILES_PATH, device_profile['names']['internal']))
-                except Exception, e:
+                except Exception as e:
                     continue
 
 
@@ -84,10 +84,10 @@ def olc_files_dirs_check():
                 else:
                     os.mkdir(item)
                 
-                print 'Created %s/%s/' % (os.path.basename(os.path.dirname(item)), os.path.basename(item))
+                print ('Created %s/%s/' % (os.path.basename(os.path.dirname(item)), os.path.basename(item)))
             elif not os.path.isdir(item):
                 error('Name conflict in files directory.')
-    except Exception, e:
+    except Exception as e:
         error(e)
 
 
@@ -100,9 +100,9 @@ class debug(object):
 
     def wrapper(self, debug):
         if self.module.debug:
-            print '-----------------'
-            print debug
-            print '\n'
+            print ('-----------------')
+            print (debug)
+            print ('\n')
             return True
         else:
             return False
