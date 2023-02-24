@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 from shutil import copyfile
 import ConfigParser
@@ -19,14 +20,14 @@ class profile(object):
     def _get_option(self, section, option):
         try:
             return self._cp.get(section, option)            
-        except ConfigParser.Error, e:
+        except ConfigParser.Error as e:
             return False
 
 
     def _get_section(self, section):
         try:
             return self._cp.items(section)
-        except ConfigParser.Error, e:
+        except ConfigParser.Error as e:
             return False
 
 
@@ -73,7 +74,7 @@ class profile(object):
         
                             profile_contents[section_name]['file_info'] = fw_files_info
             return profile_contents
-        except Exception, e:
+        except Exception as e:
             self.error('Profile failed to load properly, check config file.\n%s' % e)
 
 
@@ -110,7 +111,7 @@ class profile(object):
                     self.error('Does not appear to be a valid profile config file.')
             else:
                 self.error('Profile path does not exist.')
-        except ConfigParser.Error, e:
+        except ConfigParser.Error as e:
             self.error(e)
 
 
@@ -134,7 +135,7 @@ class profile(object):
                 print 'Saved %s as default profile.' % os.path.basename(self._profile_path)
             else:
                 self.error('No device profile set to save as default.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 if __name__ == '__main__':
