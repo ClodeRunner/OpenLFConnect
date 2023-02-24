@@ -94,7 +94,7 @@ class client(object):
             if arg != 'None':
                 sleep(1)
                 return p.stdout.read()      
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -110,7 +110,7 @@ class client(object):
                         self._dbg.upload(lpath, rpath)
                     else:
                         self.error('One of the paths does not exist')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -122,7 +122,7 @@ class client(object):
                 return ord(ret)
             else:
                 return 0
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -141,7 +141,7 @@ class client(object):
         try:
             ret = str(self.get_battery_value())
             return self._battery_level[ret]
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
     battery_level = property(get_battery_level)
 
@@ -155,7 +155,7 @@ class client(object):
                 return ret
             else:
                 return 'Unknown'
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
     serial_number = property(get_serial_number)
 
@@ -169,7 +169,7 @@ class client(object):
             else:
                 return False
 
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
     needs_repair = property(get_needs_repair)
  
@@ -180,7 +180,7 @@ class client(object):
     def mount(self):
         try:
             self.call_sg_raw('unlock')
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
    
 
@@ -189,7 +189,7 @@ class client(object):
         try:
             self.sync()
             self.call_sg_raw('disconnect')
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
 
@@ -202,7 +202,7 @@ class client(object):
                 self.move_update(paths)
             else:
                 self.error('Path is not a directory.')
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
 
@@ -212,7 +212,7 @@ class client(object):
             fw = fwdidj.config(self, self._mount_config.host_id, 'bootloader')
             paths = fw.prepare_update(lpath)           
             self.move_update(paths)
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
 
@@ -230,7 +230,7 @@ class client(object):
                 if not self._dbg.remove(fwpath):
                     rmtree(blpath)
 
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
     def eb_update(self, lpath):
@@ -267,7 +267,7 @@ class client(object):
                 f.close()
             else:
                 self.error('File does not exist.')
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
           
           
