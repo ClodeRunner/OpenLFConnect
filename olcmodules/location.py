@@ -244,7 +244,7 @@ class manager(object):
                     
             dir_list.sort(key=str.lower)
             return dir_list
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -328,4 +328,4 @@ class manager(object):
             pass
 
 if __name__ == '__main__':
-    print 'No examples yet.'
+    print ('No examples yet.')
