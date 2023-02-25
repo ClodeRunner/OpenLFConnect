@@ -54,7 +54,7 @@ class jffs2(object):
             err = p.stderr.read()
             out = p.stdout.read()
             return [out, err]
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -67,7 +67,7 @@ class jffs2(object):
                 out = p.stdout.read()
                 ret_arr.append([cmd, out, err])
             return ret_arr         
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -116,9 +116,9 @@ class jffs2(object):
             cmds = [cmd_dd, cmd_mount]
             self.popen_arr(cmds)
 
-            print 'Mounted at: %s' % self._mount
+            print ('Mounted at: %s' % self._mount)
 
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -132,7 +132,7 @@ class jffs2(object):
 
             if os.path.exists(self._mount):
                 self.popen(shlex_split('sudo rmdir %s' % self._mount))
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -149,7 +149,7 @@ class jffs2(object):
             cmd_chmod = shlex_split('sudo chmod 777 %s' % opath)
             cmds = [cmd_mkjffs2, cmd_chmod]
             self.popen_arr(cmds)
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -190,7 +190,7 @@ class ubi(object):
             err = p.stderr.read()
             out = p.stdout.read()
             return [out, err]
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -203,7 +203,7 @@ class ubi(object):
                 out = p.stdout.read()
                 ret_arr.append([cmd, out, err])
             return ret_arr         
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -281,9 +281,9 @@ class ubi(object):
             cmd_mount = shlex_split('sudo /bin/mount -t ubifs ubi%s %s -o rw,noatime,nodiratime,users' % (ubi_num, self._mount))
             self.popen(cmd_mount)
 
-            print 'Mounted at: %s' % self._mount
+            print ('Mounted at: %s' % self._mount)
                 
-        except Exception, e:
+        except Exception as e:
             if os.path.exists(self._mount):
                 self.popen(shlex_split('sudo rmdir %s' % self._mount))
             self.error(e)
@@ -299,7 +299,7 @@ class ubi(object):
             
             if os.path.exists(self._mount):
                 self.popen(shlex_split('sudo rmdir %s' % self._mount))       
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -337,7 +337,7 @@ class ubi(object):
             cmd_chmod = shlex_split('sudo chmod 777 %s' % opath)
             cmds = [cmd_mkubi, cmd_ubinize, cmd_rmimg, cmd_chmod]
             self.popen_arr(cmds)
-        except Exception, e:
+        except Exception as e:
             self.error(e)
                     
                     
