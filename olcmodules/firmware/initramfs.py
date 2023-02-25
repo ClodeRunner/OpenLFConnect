@@ -49,7 +49,7 @@ def extract(path, suffix):
     irfs = initramfs(suffix)
     if irfs.gzip_find(irfs.file_open(path), True):
         irfs.extract(path)
-        print 'Initramfs extracted.'
+        print ('Initramfs extracted.')
     else:
         error('Does not appear to be proper zImage.')
  
@@ -84,7 +84,7 @@ class initramfs():
             f.write(buf)
             f.close()
             return True
-        except Exception, e:
+        except Exception as e:
             self.prerror(e)
 
 
@@ -94,7 +94,7 @@ class initramfs():
             buf =f.read()
             f.close()
             return buf
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -126,8 +126,8 @@ class initramfs():
                 if not line: break
             p.close()
             self.file_write(buf, self._kernel_t)
-            print 'gzip extracted kernel image'
-        except Exception, e:
+            print ('gzip extracted kernel image')
+        except Exception as e:
             self.error(e)
 
 
@@ -143,7 +143,7 @@ class initramfs():
                 rmtree(self._rootfs_path)
                 self.error('Problem extracting CPIO archive.')
             os.system('sudo chmod -R 777 %s' % self._rootfs_path)
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
