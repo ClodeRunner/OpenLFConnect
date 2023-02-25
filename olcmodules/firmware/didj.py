@@ -88,9 +88,9 @@ class config(object):
                     f.write(md5sum)
                     f.close
                 else:
-                    print md5sum
+                    print (md5sum)
                 return md5_path
-        except Exception, e:
+        except Exception as e:
             self.error(e)
     
     
@@ -114,7 +114,7 @@ class config(object):
                 return file_list
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             self.error(e)
     
     
@@ -154,7 +154,7 @@ class config(object):
                 return file_paths            
             else:
                 self.error('No firmware files found.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
         
         
