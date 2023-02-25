@@ -82,7 +82,7 @@ def check(path, ret_bool=False):
 					error('File failed CBF Magic Number check.')
 			else:
 				return True
-	except Exception, e:
+	except Exception as e:
 		error(e)
 
 
@@ -98,12 +98,12 @@ def extract(path):
 
 	kernel_path = os.path.join(os.path.dirname(path), kernel_name)
 	
-	print 'Unwrapping Kernel from CBF'
+	print ('Unwrapping Kernel from CBF')
 
 	fimg = open(kernel_path, 'wb')
 	fimg.write(image)
 	fimg.close()
-	print 'Saved as: %s' % kernel_name
+	print ('Saved as: %s' % kernel_name)
 
 
 def create(mem, opath, ipath):
@@ -136,7 +136,7 @@ def create(mem, opath, ipath):
 		p = packer(mem, opath, ipath)
 		p.pack()
 		summary(os.path.join(image_path, opath))
-	except Exception, e:
+	except Exception as e:
 		error(e)
 
 
@@ -146,16 +146,16 @@ def summary(path):
 	p = parse(path)
 	p.create_summary()
 
-	print 'CBF File Summary:'
+	print ('CBF File Summary:')
 	
 	for k,v in p.summary.iteritems():
 		if len(k) < 7:
 			tab = '\t\t'
 		else:
 			tab = '\t'
-		print '%s:%s0x%08x' % (k,tab,v)
+		print ('%s:%s0x%08x' % (k,tab,v))
 		
-	print 'Compressed: \t %s' % p.is_compressed
+	print ('Compressed: \t %s' % p.is_compressed)
 
 
 
@@ -209,7 +209,7 @@ class parse(object):
 	
 			f.close()
 			return image
-		except Exception, e:
+		except Exception as e:
 			self.error(e)
 
 
@@ -268,13 +268,13 @@ class packer(object):
 				
 			padding = pad_len * '\xFF'
 			buf += padding
-			print 'Writing CBF file.'
+			print ('Writing CBF file.')
 			f = open(self._out_path, 'wb')
 			f.write(buf)
 			f.close()
 			
 			
-		except Exception, e:
+		except Exception as e:
 			error(e)
 
 
@@ -302,6 +302,6 @@ class packer(object):
 		self._summary += struct.pack('I', self._summary_crc)		
 		
 if __name__ == '__main__':
-	print 'No examples yet.'
+	print ('No examples yet.')
 
 
