@@ -128,7 +128,7 @@ class config(object):
             else:
                 self.error('No firmware files found.')
  
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
 
