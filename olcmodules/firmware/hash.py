@@ -47,7 +47,7 @@ def get_md5(path):
         md5h.update(f.read())
         f.close()
         return md5h.hexdigest()
-    except Exception, e:
+    except Exception as e:
         error(e)
 
 
@@ -59,6 +59,6 @@ def get_sha1(path):
         sha1h.update(f.read())
         f.close()
         return sha1h.hexdigest()
-    except Exception, e:
+    except Exception as e:
         error(e)
 
