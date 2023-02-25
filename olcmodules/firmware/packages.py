@@ -64,10 +64,10 @@ def extract(path):
                 file_path = os.path.join(path, file_name)
                 
                 if file_name.endswith('lfp'):
-                    print 'Extracting lfp: %s' % file_name
+                    print ('Extracting lfp: %s' % file_name)
                     opener, mode = zipfile.ZipFile, 'r'
                 elif file_name.endswith('lf2'):
-                    print 'Extracting lf2: %s' % file_name
+                    print ('Extracting lf2: %s' % file_name)
                     opener, mode = tarfile.open, 'r:bz2'
                 else:
                     error('Extracting error.')
@@ -77,7 +77,7 @@ def extract(path):
                 f.close() 
         else:
             error('No packages found.')
-    except Exception, e:
+    except Exception as e:
         error(e)
 
 
@@ -103,7 +103,7 @@ class lf_packages(object):
         try:
             try:
                 test = self._device_profile['names']['lf_url']
-            except Exception, e:
+            except Exception as e:
                 raise Exception('Packages not available for this profile.')
 
             if self._url == '':
@@ -119,11 +119,11 @@ class lf_packages(object):
                 package_lpath = os.path.join(path, package)
                 if not os.path.exists(package_lpath):
                     urlretrieve(package_url, package_lpath)
-                    print 'Downloading: %s' % package
+                    print ('Downloading: %s' % package)
     
                 else:
-                    print 'Package %s already exists.' % package
-        except Exception, e:
+                    print ('Package %s already exists.' % package)
+        except Exception as e:
             self.error(e)
 
 
