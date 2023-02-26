@@ -55,7 +55,7 @@ class filesystem(object):
                 return True
             else:
                 self._client.error('Path does not exist.')
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -66,7 +66,7 @@ class filesystem(object):
                 return self._client.is_dir_i(path)
             else:
                 self._client.error('Path does not exist.')
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -80,7 +80,7 @@ class filesystem(object):
                     self._client.error('Path is not a directory.')
             else:
                 self._client.error('Path does not exist.')
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -92,7 +92,7 @@ class filesystem(object):
             else:
                 self._client.error('Directory already exists.')
                 
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -104,7 +104,7 @@ class filesystem(object):
             else:
                 self._client.error('Path is not a directory.')
                 
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -116,7 +116,7 @@ class filesystem(object):
             else:
                 self._client.error('Path is not a file.')
                 
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -128,7 +128,7 @@ class filesystem(object):
             else:
                 self._client.download_file_i(lpath, rpath)                
 
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -142,7 +142,7 @@ class filesystem(object):
                     self._client.upload_file_i(lpath, rpath)
             else:
                 self._client.error('Path does not exist.')
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
 
 
@@ -154,8 +154,8 @@ class filesystem(object):
             else:
                 self._client.error('Path is not a file.')
                 
-        except Exception, e:
+        except Exception as e:
             self._client.rerror(e)
                    
 if __name__ == '__main__':
-    print 'No examples yet.'
+    print ('No examples yet.')
