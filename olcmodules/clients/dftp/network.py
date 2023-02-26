@@ -69,7 +69,7 @@ class connection():
     def send(self, data, type='small'):
         try:
             return self._sock0.send(data)
-        except Exception, e:
+        except Exception as e:
             self.error('Send error: %s' % e)
 
 
@@ -114,7 +114,7 @@ class connection():
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -125,13 +125,13 @@ class connection():
             
             try:
                 sock = socket.socket(af, socktype, proto)
-            except socket.error, e:
+            except socket.error as e:
                 sock = None
                 continue
             
             try:
                 sock.connect(sa)
-            except socket.error, e:
+            except socket.error as e:
                 sock.close()
                 sock = None
                 continue
@@ -166,9 +166,9 @@ class connection():
                 if error:
                     return False
                 else:
-                    print ' Bytes Received: %s' % len(ret_buf)
+                    print (' Bytes Received: %s' % len(ret_buf))
                     return ret_buf
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -188,11 +188,11 @@ class connection():
                         self.error('Problem occurred while uploading.')
                         
                 self.sendrtn('101 EOF')
-                print ' Bytes Sent: %s' % bytes_sent
+                print (' Bytes Sent: %s' % bytes_sent)
                 return bytes_sent
             else:
                 self.error('Failed to upload file.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -223,5 +223,5 @@ class connection():
                 return True
             else:
                 self.error('Failed to run script.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
