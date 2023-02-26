@@ -120,7 +120,7 @@ class connection():
                 self.sendrtn('101 EOF:%s\x00' % (request_len - data_p_len))
 
             return bytes_sent
-        except Exception, e:
+        except Exception as e:
             self.error('Send error: %s' % e)
 
 
@@ -154,7 +154,7 @@ class connection():
                 return line
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             self.error('Receiving error: %s' % e)
 
 
@@ -183,7 +183,7 @@ class connection():
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -232,7 +232,7 @@ class connection():
                     sys.stdout.write('\r Bytes Received: %s' % len(ret_buf))
                     sys.stdout.flush()
                     return ret_buf
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -244,7 +244,7 @@ class connection():
                 return bytes_sent
             else:
                 self.error('Failed to upload file.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -265,5 +265,5 @@ class connection():
                 return True
             else:
                 self.error('Failed to run script.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
