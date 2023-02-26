@@ -110,15 +110,10 @@ class client(object):
             
             if len(err) != 0:
                 self.error('SCSI error.')                
-        except Exception, e:
+        except Exception as e:
             self.rerror(e)
 
 
 if __name__ == '__main__':
-    print 'No examples yet.'
-        
+    print ('No examples yet.')
 
-
-
-
-    
