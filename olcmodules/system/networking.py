@@ -102,7 +102,7 @@ class connection(object):
                     return True
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             return False
 
 
@@ -116,7 +116,7 @@ class connection(object):
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
             return sock
 
-        except socket.error, e:
+        except socket.error as e:
             self.error('Multicast Socket: %s' % e)
 
 
@@ -129,7 +129,7 @@ class connection(object):
                 
                 if err:
                     self.error('Route could not be established.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -160,7 +160,7 @@ class connection(object):
             m = regx_ip.search(stdout)
             if m:
                 return m.group('ip')
-        except Exception, e:
+        except Exception as e:
             self.error(e)   
 
 
@@ -181,7 +181,7 @@ class connection(object):
                 timeout -= 1
                 
             self.error('Timed out waiting for host IP.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -206,7 +206,7 @@ class connection(object):
     
             else:
                 self.error('Timed out waiting for device IP.')
-        except Exception, e:
+        except Exception as e:
             self.error(e)
      
 #######################
@@ -231,8 +231,8 @@ class connection(object):
     def is_connected_i(self):
         try:
             return self.parse_ifconfig(self._host_ip)
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 if __name__ == '__main__':
-    print 'No example yet'
+    print ('No example yet')
