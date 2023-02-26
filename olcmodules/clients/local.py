@@ -58,7 +58,7 @@ class client(object):
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -66,7 +66,7 @@ class client(object):
     def is_dir_i(self, path):
         try:
             return os.path.isdir(path)
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -85,7 +85,7 @@ class client(object):
                 return dir_list
             else:
                 return ''
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -95,7 +95,7 @@ class client(object):
             if not self._dbg.make(path):
                 os.mkdir(path)
 
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -105,7 +105,7 @@ class client(object):
             if not self._dbg.remove(path):
                 rmtree(path)
                 
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -115,7 +115,7 @@ class client(object):
             if not self._dbg.remove(path):
                 os.remove(path)
                 
-        except Exception, e:
+        except Exception as e:
             self.error(e)
 
 
@@ -124,8 +124,8 @@ class client(object):
         try:
             if not self._dbg.download(lpath, rpath):
                 copyfile(rpath, lpath)
-                print '%s%s: %s Bytes' % (tab, os.path.basename(lpath), os.path.getsize(lpath))
-        except Exception, e:
+                print ('%s%s: %s Bytes' % (tab, os.path.basename(lpath), os.path.getsize(lpath)))
+        except Exception as e:
             self.error(e)
 
 
@@ -134,7 +134,7 @@ class client(object):
         try:
             if not os.path.exists(lpath) and not self._dbg.make(lpath):
                 os.mkdir(lpath)
-                print '%s%s/' % (tab, os.path.basename(lpath))
+                print ('%s%s/' % (tab, os.path.basename(lpath)))
                 tab+=' '
                     
             for item in self.dir_list_i(rpath):
@@ -146,7 +146,7 @@ class client(object):
                     if rexists and self.is_dir_i(item_rpath):
                         if not os.path.exists(lpath) and not self._dbg.make(item_lpath):
                             os.mkdir(item_lpath)
-                            print '%s%s/' % (tab, os.path.basename(item_lpath))
+                            print ('%s%s/' % (tab, os.path.basename(item_lpath)))
                             
                         self.download_dir_i(item_lpath, item_rpath, tab)
 
@@ -154,8 +154,8 @@ class client(object):
                         self.download_file_i(item_lpath, item_rpath, tab)
                         
                     else:
-                        print '%sSkipped: %s' % (tab, item_rpath)
-        except Exception, e:
+                        print ('%sSkipped: %s' % (tab, item_rpath))
+        except Exception as e:
             self.error(e)
 
 
@@ -164,8 +164,8 @@ class client(object):
         try:
             if not self._dbg.upload(lpath, rpath):
                 copyfile(lpath, rpath)
-                print '%s%s: %s Bytes' % (tab, os.path.basename(lpath), os.path.getsize(lpath))
-        except Exception, e:
+                print ('%s%s: %s Bytes' % (tab, os.path.basename(lpath), os.path.getsize(lpath)))
+        except Exception as e:
             self.error(e)
 
 
@@ -174,7 +174,7 @@ class client(object):
         try:
             if not self.exists_i(rpath) and not self._dbg.make(rpath):
                 self.mkdir_i(rpath)
-                print '%s%s/' % (tab, os.path.basename(rpath))
+                print ('%s%s/' % (tab, os.path.basename(rpath)))
                 tab+=' '
           
             for item in os.listdir(lpath):
@@ -185,7 +185,7 @@ class client(object):
                 if lexists and os.path.isdir(item_lpath):
                     if self.exists_i(item_rpath) and not self._dbg.make(item_rpath):
                         self.mkdir_i(item_rpath)
-                        print '%s%s/' % (tab, os.path.basename(item_rpath))
+                        print ('%s%s/' % (tab, os.path.basename(item_rpath)))
 
                     self.upload_dir_i(item_lpath, item_rpath, tab)
 
@@ -193,8 +193,8 @@ class client(object):
                     self.upload_file_i(item_lpath, item_rpath, tab)
 
                 else:
-                    print '%sSkipped: %s' % (tab, item_lpath)
-        except Exception, e:
+                    print ('%sSkipped: %s' % (tab, item_lpath))
+        except Exception as e:
             self.error(e)
 
 
@@ -205,8 +205,8 @@ class client(object):
             buf = f.read()
             f.close()
             return buf
-        except Exception, e:
+        except Exception as e:
             self.error(e)
             
 if __name__ == '__main__':
-    print 'No examples yet.'
+    print ('No examples yet.')
