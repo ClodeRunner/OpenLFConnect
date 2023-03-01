@@ -51,7 +51,7 @@ class client(object):
         self._name_lpad2 = 'LeapPad2'
 
         self._dftp_version_init = self._profile.get['firmware']['dftp_version']
-        
+
         self._firmware_version = 0
         self._board_id = 0
         self._dftp_version = 0
@@ -72,7 +72,7 @@ class client(object):
     def find_dftp_version(self):
         try:
             ret = self.sendrtn('INFO\x00', True)
-            
+
             for line in ret:
                 if 'VERSION' in line:
                     version = line.split('=')[1]
@@ -91,7 +91,7 @@ class client(object):
             for value in ret:
                 if value.startswith('BATTERYLEVEL'):
                     return value.split('=')[1]
-                
+
             return False
         except Exception as e:
             self.error(e)
@@ -120,7 +120,7 @@ class client(object):
         if self._dftp_version_init != self._profile.get['firmware']['dftp_version']:
             self.error('DFTP version mismatch, please change profiles, or reconnect.')
 
-    
+
     def send(self, data, type='small'):
         self.check_dftp_version()
         return self._connection.send(data, type)
@@ -134,13 +134,13 @@ class client(object):
 
     def download_buffer(self, path):
         return self._connection.download_buffer(path)
-    
+
     def upload_buffer(self, buf, rpath):
         return self._connection.upload_buffer(buf, rpath)
 
     def run_buffer(self, buf):
         return self._connection.run_buffer(buf)
-   
+
 
 #######################
 # Client User Information Functions
@@ -171,11 +171,11 @@ class client(object):
             for value in ret:
                 if value.startswith('SERIAL'):
                     return value.split('=')[1].replace('"','')
-                
+
             return 'Unknown'
         except Exception as e:
             self.rerror(e)
-        
+
     serial_number = property(get_serial_number)
 
 
@@ -191,11 +191,11 @@ class client(object):
                 return 'Unknown'
         except Exception as e:
             self.rerror(e)
-    
+
     battery_level = property(get_battery_level)
 
 
-    
+
     def get_board_id(self):
         try:
             if not self._board_id:
@@ -203,7 +203,7 @@ class client(object):
             return self._board_id
         except Exception as e:
             self.rerror(e)
-            
+
     board_id = property(get_board_id)
 
 
@@ -236,7 +236,7 @@ class client(object):
 #######################
 
     def create_client(self):
-        try:            
+        try:
             if int(self._profile.get['firmware']['dftp_version']) == 1:
                 from olcmodules.clients.dftp import network
                 self._connection = network.connection(self._conn_iface)
@@ -245,7 +245,7 @@ class client(object):
                 self._connection = mass_storage.connection(self._conn_iface)
             else:
                 self.error('DFTP version could not be determined.')
-            
+
             self._connection.create_client()
         except Exception as e:
             self.rerror(e)
@@ -287,13 +287,13 @@ class client(object):
 
             fw = fwdftp.config(self._profile, lpath)
             paths = fw.get_file_paths()
-                
+
             if not self.exists_i(self._profile.get['firmware']['remote_path']):
                 self.mkdir_i(self._profile.get['firmware']['remote_path'])
-               
+
             for lfpath, rfpath in paths:
                 self.upload_file_i(lfpath, rfpath)
-                                        
+
         except Exception as e:
             self.rerror(e)
 
@@ -315,7 +315,7 @@ class client(object):
             self.rerror(e)
 
 
- 
+
     def mount_patient(self, num):
         try:
             if num in ('0', '1', '2'):
@@ -326,7 +326,7 @@ class client(object):
                 self.error('Options are 0, 1, and 2')
         except Exception as e:
             self.rerror(e)
-        
+
 #######################
 # Filesystem Interface Functions
 #######################
@@ -358,19 +358,19 @@ class client(object):
             return False
         except Exception as e:
             self.error(e)
- 
+
 
 
     def dir_list_i(self, path):
         try:
             dir_list = []
             ret_arr = self.get_list_array(path)
-              
+
             for path in ret_arr:
                 if '503 Bad response: Unexpected status read' not in path:
                     path = path.rsplit(' ', 1)[1].replace('\r', '').replace('\n', '')
                     dir_list.append(path)
-                    
+
             if len(dir_list) > 0:
                 return dir_list
             else:
@@ -413,7 +413,7 @@ class client(object):
                 print ('%sDownloading: %s' % (tab, os.path.basename(rpath)))
                 ret_buf = self.download_buffer(rpath)
                 print ('\r')
-                
+
                 if ret_buf:
                     f = open(os.path.normpath(lpath), 'wb')
                     f.write(ret_buf)
@@ -431,23 +431,23 @@ class client(object):
                 os.mkdir(lpath)
                 print ('%s%s/' % (tab, os.path.basename(lpath)))
                 tab+=' '
-                    
+
             for item in self.dir_list_i(rpath):
                 if item != './' and item != '../':
                     item_lpath = os.path.normpath(os.path.join(lpath, item))
                     item_rpath = os.path.join(rpath, item).replace('\\', '/')
                     rexists = self.exists_i(item_rpath)
-                    
+
                     if rexists and self.is_dir_i(item_rpath):
                         if not os.path.exists(lpath) and not self._dbg.make(item_lpath):
                             os.mkdir(item_lpath)
                             print ('%s%s/' % (tab, os.path.basename(item_lpath)))
-                            
+
                         self.download_dir_i(item_lpath, item_rpath, tab)
 
                     elif rexists and not self.is_dir_i(item_rpath):
                         self.download_file_i(item_lpath, item_rpath, tab)
-                        
+
                     else:
                         print ('%sSkipped: %s' % (tab, item_rpath))
         except Exception as e:
@@ -458,7 +458,7 @@ class client(object):
     def upload_file_i(self, lpath, rpath, tab=' '):
         try:
             if not self._dbg.upload(lpath, rpath):
-                print '%sUploading: %s' % (tab, os.path.basename(lpath))
+                print ('%sUploading: %s' % (tab, os.path.basename(lpath)))
                 bytes_sent = self.upload_buffer(lpath, rpath)
                 print ('\r')
         except Exception as e:
@@ -472,12 +472,12 @@ class client(object):
                 self.mkdir_i(rpath)
                 print ('%s%s/' % (tab, os.path.basename(rpath)))
                 tab+=' '
-          
+
             for item in os.listdir(lpath):
                 item_lpath = os.path.join(lpath, item)
                 item_rpath = os.path.join(rpath, item).replace('\\', '/')
                 lexists = os.path.exists(item_lpath)
-                
+
                 if lexists and os.path.isdir(item_lpath):
                     if self.exists_i(item_rpath) and not self._dbg.make(item_rpath):
                         self.mkdir_i(item_rpath)
@@ -489,7 +489,7 @@ class client(object):
                     self.upload_file_i(item_lpath, item_rpath, tab)
 
                 else:
-                    print ('%sSkipped: %s' % (tab, item_lpath))                    
+                    print ('%sSkipped: %s' % (tab, item_lpath))
         except Exception as e:
             self.error(e)
 
@@ -499,14 +499,14 @@ class client(object):
         try:
             if self.is_dir_i(path):
                 self.error('Path is not a file')
-            
+
             ret_buf = self.download_buffer(path)
-            if ret_buf:            
+            if ret_buf:
                 return ret_buf
             else:
                 self.error('No data received.')
         except Exception as e:
-            self.error(e) 
+            self.error(e)
 
 
 

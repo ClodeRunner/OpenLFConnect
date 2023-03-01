@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 from shutil import copyfile
-import ConfigParser
+import configparser
 
 class profile(object):
     def __init__(self, default=''):
@@ -19,7 +19,7 @@ class profile(object):
 
     def _get_option(self, section, option):
         try:
-            return self._cp.get(section, option)            
+            return self._cp.get(section, option)
         except ConfigParser.Error as e:
             return False
 
@@ -64,14 +64,14 @@ class profile(object):
                         elif option[0] == 'names':
                             fw_files_info = {}
                             fw_file_name_list = option[1].split(',')
-                           
+
                             for fw_file_name in fw_file_name_list:
                                 fw_files_info[fw_file_name] = {}
                                 fw_file_info = self._get_section(fw_file_name)
-        
+
                                 for fw_file_info_entry in fw_file_info:
                                     fw_files_info[fw_file_name][fw_file_info_entry[0]] = fw_file_info_entry[1]
-        
+
                             profile_contents[section_name]['file_info'] = fw_files_info
             return profile_contents
         except Exception as e:
@@ -132,7 +132,7 @@ class profile(object):
 
             if profile_path:
                 copyfile(profile_path, self._profile_path_default)
-                print 'Saved %s as default profile.' % os.path.basename(self._profile_path)
+                print ('Saved %s as default profile.' % os.path.basename(self._profile_path))
             else:
                 self.error('No device profile set to save as default.')
         except Exception as e:
