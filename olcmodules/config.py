@@ -49,7 +49,7 @@ HISTORY_FILE_PATH = os.path.join(FILES_PATH, '.olfc.hist')
 def error(e):
     assert False, '%s' % e
 
-        
+
 def olc_files_dirs_check():
     try:
 
@@ -62,7 +62,7 @@ def olc_files_dirs_check():
             open(HISTORY_FILE_PATH, 'a').close()
 
         dirs = [DOWNLOAD_PATH, EXTRAS_PATH, SCRIPTS_PATH, PROFILES_PATH]
-                
+
 
         dprofile = profile()
         for cfg in os.listdir(INTERNAL_PROFILES_PATH):
@@ -83,7 +83,7 @@ def olc_files_dirs_check():
                     copytree(INTERNAL_PROFILES_PATH, PROFILES_PATH)
                 else:
                     os.mkdir(item)
-                
+
                 print ('Created %s/%s/' % (os.path.basename(os.path.dirname(item)), os.path.basename(item)))
             elif not os.path.isdir(item):
                 error('Name conflict in files directory.')
@@ -106,38 +106,38 @@ class debug(object):
             return True
         else:
             return False
-    
-    
-    
+
+
+
     def make(self, path):
         debug = 'Made: %s' % os.path.basename(path)
         return self.wrapper(debug)
-    
-    
-    
+
+
+
     def upload(self, lpath, rpath):
         debug = """
     local: %s
     remote: %s
             """ % (lpath, rpath)
         return self.wrapper(debug)
-    
-    
-    
+
+
+
     def download(self, lpath, rpath):
         debug = """
     local: %s
     remote: %s
             """ % (lpath, rpath)
         return self.wrapper(debug)
-    
-    
-    
+
+
+
     def remove(self, path):
         debug = 'Deleted: %s' % os.path.basename(path)
         return self.wrapper(debug)
-    
-    
+
+
 
     def run_script(self, path):
         debug = 'Ran Script: %s' % os.path.basename(path)

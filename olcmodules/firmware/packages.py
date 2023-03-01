@@ -37,8 +37,8 @@ import tarfile
 import zipfile
 from copy import copy
 import xml.dom.minidom as xml
-from urllib import urlretrieve
-from urllib2 import urlopen
+from urllib.request import urlretrieve
+from urllib.request import urlopen
 
 from olcmodules import config
 
@@ -58,11 +58,11 @@ def extract(path):
             if path.endswith(EXTS):
                 files = [os.path.basename(path)]
                 path = os.path.dirname(path)
-        
+
         if len(files) > 0:
             for file_name in files:
                 file_path = os.path.join(path, file_name)
-                
+
                 if file_name.endswith('lfp'):
                     print ('Extracting lfp: %s' % file_name)
                     opener, mode = zipfile.ZipFile, 'r'
@@ -71,10 +71,10 @@ def extract(path):
                     opener, mode = tarfile.open, 'r:bz2'
                 else:
                     error('Extracting error.')
-                
+
                 f = opener(file_path, mode)
                 f.extractall(path)
-                f.close() 
+                f.close()
         else:
             error('No packages found.')
     except Exception as e:
@@ -98,7 +98,7 @@ class lf_packages(object):
         assert False, 'Packages: %s' % e
 
 
- 
+
     def get_package(self, ptype, path):
         try:
             try:
@@ -110,7 +110,7 @@ class lf_packages(object):
                 self.error('URL could not be determined. Check device profile.')
 
             ptype = ptype.lower()
-            
+
             if ptype not in self._device_profile['packages']:
                 self.error('Package type wrong for this device profile.')
             packages = self._device_profile['packages'][ptype].split(',')
@@ -120,7 +120,7 @@ class lf_packages(object):
                 if not os.path.exists(package_lpath):
                     urlretrieve(package_url, package_lpath)
                     print ('Downloading: %s' % package)
-    
+
                 else:
                     print ('Package %s already exists.' % package)
         except Exception as e:

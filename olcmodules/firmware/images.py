@@ -33,7 +33,7 @@
 # firmware/images.py Version 0.5
 import os
 import re
-import ConfigParser
+import configparser
 from subprocess import Popen, PIPE
 from shlex import split as shlex_split
 
@@ -66,13 +66,13 @@ class jffs2(object):
                 err = p.stderr.read()
                 out = p.stdout.read()
                 ret_arr.append([cmd, out, err])
-            return ret_arr         
+            return ret_arr
         except Exception as e:
             self.error(e)
 
 
 
-                       
+
     def mount(self, path):
         try:
             if not os.path.exists(path):
@@ -80,7 +80,7 @@ class jffs2(object):
 
             if not path.endswith('.jffs2'):
                 self.error('Path does not look like a jffs2 file.')
-            
+
             if os.path.exists(self._mount):
                 self.error('Looks like a jffs2 image is already mounted.')
 
@@ -104,7 +104,7 @@ class jffs2(object):
                         mtdr = re.compile(proc_mtd_regex)
                         mtds = mtdr.search(line)
                         break
-                    
+
                 f.close()
                 if mtds:
                     mtd_num = mtds.group('mnum')
@@ -141,7 +141,7 @@ class jffs2(object):
         try:
             if not os.path.isdir(ipath):
                 self.error('Input path is not a directory.')
-            
+
             if not opath.endswith('.jffs2'):
                 opath = '%s.jffs2' % opath
 
@@ -202,12 +202,12 @@ class ubi(object):
                 err = p.stderr.read()
                 out = p.stdout.read()
                 ret_arr.append([cmd, out, err])
-            return ret_arr         
+            return ret_arr
         except Exception as e:
             self.error(e)
 
 
-        
+
     def mount(self, path):
         try:
             if not os.path.exists(path):
@@ -215,7 +215,7 @@ class ubi(object):
 
             if not path.endswith('.ubi'):
                 self.error('Path does not look like an Explorer UBI file.')
-            
+
             if os.path.exists(self._mount):
                 self.error('Looks like a ubi image is already mounted.')
 
@@ -226,7 +226,7 @@ class ubi(object):
             ubi_num = None
 
             if not os.path.exists(self._mount):
-                self.popen(shlex_split('sudo mkdir %s' % self._mount)) 
+                self.popen(shlex_split('sudo mkdir %s' % self._mount))
 
             if self._ubi_version == '1':
 	            cmd_nandsim = shlex_split('%s nandsim first_id_byte=0x2C second_id_byte=0xDC third_id_byte=0x00 fourth_id_byte=0x15' % self._modprobe)
@@ -235,7 +235,7 @@ class ubi(object):
                 self._force_4096 = '-O 4096'
 
             self.popen(cmd_nandsim)
-            
+
             if os.path.exists(proc_mtd):
                 f = open(proc_mtd, 'r')
                 for line in f:
@@ -243,17 +243,17 @@ class ubi(object):
                         mtdr = re.compile(proc_mtd_regex)
                         mtds = mtdr.search(line)
                         break
-                    
+
                 f.close()
                 if mtds:
                     mtd_num = mtds.group('mnum')
                 else:
-                    self.error('Could not determine mtd number.')                
+                    self.error('Could not determine mtd number.')
             else:
                 self.error('mtd not created.')
 
             cmd_ubi = shlex_split('%s ubi mtd=%s' % (self._modprobe, mtd_num))
-            cmd_ubidetach = shlex_split('%subidetach /dev/ubi_ctrl -m %s' % (self._ubi_loc, mtd_num)) 
+            cmd_ubidetach = shlex_split('%subidetach /dev/ubi_ctrl -m %s' % (self._ubi_loc, mtd_num))
             self.popen_arr([cmd_ubi, cmd_ubidetach])
             cmd_ubiformat = shlex_split('%subiformat -e 1 %s /dev/mtd%s -f %s' % (self._ubi_loc, self._force_4096, mtd_num, path))           
 
@@ -277,12 +277,12 @@ class ubi(object):
                 ubi_num = ubis.group('unum')
             else:
                 self.error('Could not determine ubi number.')
-            
+
             cmd_mount = shlex_split('sudo /bin/mount -t ubifs ubi%s %s -o rw,noatime,nodiratime,users' % (ubi_num, self._mount))
             self.popen(cmd_mount)
 
             print ('Mounted at: %s' % self._mount)
-                
+
         except Exception as e:
             if os.path.exists(self._mount):
                 self.popen(shlex_split('sudo rmdir %s' % self._mount))
@@ -296,9 +296,9 @@ class ubi(object):
             cmd_rmmod = shlex_split('sudo /sbin/rmmod ubifs ubi nandsim')
             cmds = [cmd_umount, cmd_rmmod]
             self.popen_arr(cmds)
-            
+
             if os.path.exists(self._mount):
-                self.popen(shlex_split('sudo rmdir %s' % self._mount))       
+                self.popen(shlex_split('sudo rmdir %s' % self._mount))
         except Exception as e:
             self.error(e)
 
@@ -308,7 +308,7 @@ class ubi(object):
         try:
             if not opath.endswith('.ubi'):
                 opath = '%s.ubi' % opath
-                
+
             if not os.path.isdir(ipath):
                 self.error('Input path is not a directory.')
 
@@ -331,7 +331,7 @@ class ubi(object):
                                                           self._params['vid_hdr_offset'],
                                                           ini_file)
 
-            cmd_mkubi = shlex_split('sudo /usr/sbin/mkfs.ubifs %s temp.ubifs' % (mkfs))        
+            cmd_mkubi = shlex_split('sudo /usr/sbin/mkfs.ubifs %s temp.ubifs' % (mkfs))
             cmd_ubinize = shlex_split('sudo /usr/sbin/ubinize  %s' % (ubinz))
             cmd_rmimg = shlex_split('sudo rm temp.ubifs')
             cmd_chmod = shlex_split('sudo chmod 777 %s' % opath)
@@ -339,5 +339,5 @@ class ubi(object):
             self.popen_arr(cmds)
         except Exception as e:
             self.error(e)
-                    
-                    
+
+
