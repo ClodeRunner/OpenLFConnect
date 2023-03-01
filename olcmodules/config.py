@@ -33,8 +33,10 @@
 # config.py Version 0.4
 
 import os
+import configparser
 from shutil import copytree
 from olcmodules.devices import profile
+
 
 APP_PATH = os.path.dirname(os.path.dirname(__file__))
 FILES_PATH = os.path.join(APP_PATH, 'files')

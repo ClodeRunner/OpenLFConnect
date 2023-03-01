@@ -5,7 +5,7 @@ import configparser
 
 class profile(object):
     def __init__(self, default=''):
-        self._cp = ConfigParser.ConfigParser()
+        self._cp = configparser.ConfigParser()
         self._main_sections = {'olfc':{},'names':{},'packages':{},'firmware':{}}
         self._profile_contents = {}
 
